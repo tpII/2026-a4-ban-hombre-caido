@@ -1,0 +1,240 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+body {
+  background-color: #f5f7f9; /* Un color de fondo suave para toda la web */
+  color: #1a202c;
+}
+
+.dashboard-container {
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* HEADER FULL WIDTH (De lado a lado) */
+.header {
+  display: flex;
+  flex-direction: row; 
+  align-items: center;
+  justify-content: space-between; /* Separa el logo a la izquierda y botones a la derecha */
+  width: 100%;
+  padding: 15px 50px; /* Espacio amplio a los lados */
+  background-color: #ffffff;
+  border-bottom: 1px solid #e2e8f0;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.logo {
+  font-weight: bold;
+  font-size: 1.4rem;
+  color: #0f4c5c;
+}
+
+.nav-links {
+  display: flex;
+  gap: 15px;
+}
+
+.btn-nav {
+  background: white;
+  border: 1px solid #cbd5e0;
+  border-radius: 6px;
+  font-size: 14px;
+  padding: 8px 16px;
+  cursor: pointer;
+  color: #2d3748;
+}
+
+.btn-nav.active {
+  background: #0f4c5c;
+  color: white;
+  border-color: #0f4c5c;
+}
+
+/* CONTENIDO PRINCIPAL CENTRADO Y AMPLIO */
+.main-content {
+  max-width: 1000px; /* Ancho cómodo para leer en PC */
+  margin: 40px auto; /* Centrado en la pantalla */
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.page-header h1 {
+  color: #0f4c5c;
+  font-size: 2rem;
+  margin-bottom: 8px;
+}
+
+.page-header p {
+  color: #718096;
+  font-size: 1.1rem;
+}
+
+/* TARJETAS */
+.info-grid {
+  display: flex;
+  gap: 20px;
+}
+
+.card {
+  flex: 1;
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 25px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+}
+
+.card h3 {
+  font-size: 1.1rem;
+  margin-bottom: 15px;
+  color: #2d3748;
+}
+
+.device-status {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.device-status p {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+  margin: 0;
+}
+
+.card-content {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.avatar {
+  background-color: #719a9a;
+  color: white;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.contact-details .subtext {
+  font-size: 0.85rem;
+  color: #718096;
+  margin-top: 3px;
+}
+
+/* HISTORIAL */
+.history-section h3 {
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+  color: #2d3748;
+}
+
+.history-list {
+  list-style: none;
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+}
+
+.history-item {
+  display: flex;
+  padding: 20px;
+  border-bottom: 1px solid #e2e8f0;
+  align-items: center;
+}
+
+.history-item:last-child {
+  border-bottom: none;
+}
+
+.history-item .time {
+  width: 150px;
+  font-weight: 500;
+}
+
+.history-item .event {
+  flex: 1;
+}
+
+.badge {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: bold;
+}
+
+.badge-red {
+  background-color: #fed7d7;
+  color: #c53030;
+}
+
+.badge-green {
+  background-color: #c6f6d5;
+  color: #2f855a;
+}
+.alert-banner {
+  background-color: #fff5f5;
+  border: 2px solid #fc8181;
+  border-left: 6px solid #e53e3e;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 25px;
+}
+
+.alert-banner h2 {
+  color: #c53030;
+  margin-bottom: 12px;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+}
+
+.alert-banner p {
+  color: #2d3748;
+  margin-bottom: 6px;
+  font-size: 1rem;
+}
+
+/* Contenedor del botón y el texto de advertencia */
+.alert-actions {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-top: 15px;
+  flex-wrap: wrap;
+}
+
+.btn-danger {
+  background-color: #e53e3e;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.2s;
+}
+
+.btn-danger:hover {
+  background-color: #c53030;
+}
+
+.alert-actions span {
+  font-size: 0.9rem;
+  color: #718096;
+}
