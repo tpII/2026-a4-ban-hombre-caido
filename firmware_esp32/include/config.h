@@ -6,7 +6,7 @@
 #define WIFI_PASS "57194929"
 
 // === Configuración MQTT ===
-#define MQTT_HOST "192.168.0.100"
+#define MQTT_HOST "192.168.0.104"
 #define MQTT_PORT 1883
 
 #endif

@@ -14,7 +14,6 @@
 Adafruit_MPU6050 mpu;
 Adafruit_BMP085 bmp;
 
-//unsigned long lastMsg = 0;
 bool mpuOK = false;
 bool bmpOK = false;
 
@@ -24,9 +23,9 @@ float offsetGiroY = -0.019f;
 float offsetGiroZ = 0.022f;
 
 // Referencia del acelerómetro
-float referenciaAcelX = -1.297f;
-float referenciaAcelY = -0.158f;
-float referenciaAcelZ = 0.595f;
+float referenciaAcelX = 0.4051f;
+float referenciaAcelY = -0.0946f;
+float referenciaAcelZ = 0.6597f;
 
 // Referencia de presión atmosférica
 float presionReferencia = 0;
@@ -58,6 +57,10 @@ QueueHandle_t colaPublicaciones;
 // Periodos de ejecución
 const TickType_t PERIODO_SENSORES = pdMS_TO_TICKS(100);
 const TickType_t PERIODO_PUBLICACION = pdMS_TO_TICKS(200);
+// Configuración del buzzer
+const int PIN_BUZZER = 27;
+const TickType_t PERIODO_BUZZER = pdMS_TO_TICKS(10000);
+const TickType_t DURACION_PITIDO = pdMS_TO_TICKS(200);
 
 
 // ==================================================
@@ -215,34 +218,45 @@ void tareaComunicacion(void *pvParameters) {
   }
 }
 
+// ==================================================
+// TAREA DEL BUZZER
+// Emite un pitido cada 10 segundos
+// ==================================================
+
+void tareaBuzzer(void *pvParameters) {
+
+    TickType_t ultimaEjecucion = xTaskGetTickCount();
+
+    for (;;) {
+
+        // Esperar hasta la próxima activación
+        vTaskDelayUntil(
+            &ultimaEjecucion,
+            PERIODO_BUZZER
+        );
+
+        // Activar el buzzer
+        digitalWrite(PIN_BUZZER, HIGH);
+
+        // Mantener el pitido durante 200 ms
+        vTaskDelay(DURACION_PITIDO);
+
+        // Desactivar el buzzer
+        digitalWrite(PIN_BUZZER, LOW);
+    }
+}
+
 //SETUP Inicializa hardware, colas y tareas
 void setup() {
   Serial.begin(115200);
-  
-  //setup_wifi();
-  //setup_mqtt();
+
+  // Inicializar buzzer
+  pinMode(PIN_BUZZER, OUTPUT);
+  digitalWrite(PIN_BUZZER, LOW);
 
   Wire.begin(21, 22); //inicializa I2C con pines SDA=21 y SCL=22
   Wire1.begin(25, 26);
   
-  /*
-  // Inicializar MPU6050
-  if (!mpu.begin()) {
-    Serial.println("¡Error MPU6050!");
-  } else {
-    mpu.setAccelerometerRange(MPU6050_RANGE_8_G);
-    mpu.setGyroRange(MPU6050_RANGE_500_DEG);
-    mpu.setFilterBandwidth(MPU6050_BAND_21_HZ);
-  }
-
-  // Inicializar BMP180
-  if (!bmp.begin()) {
-    Serial.println("¡Error BMP180! Revisa las conexiones.");
-  } else {
-    Serial.println("BMP180 encontrado.");
-  }
-}
-  */
 
 // Inicializar MPU6050
   mpuOK = mpu.begin();
@@ -326,9 +340,20 @@ void setup() {
     NULL
   );
 
+  // Crear tarea del buzzer
+  BaseType_t resultado4 = xTaskCreate(
+    tareaBuzzer,
+    "Buzzer",
+    2048,
+    NULL,
+    1,
+    NULL
+  );
+
   if (resultado1 != pdPASS ||
-      resultado2 != pdPASS ||
-      resultado3 != pdPASS) {
+    resultado2 != pdPASS ||
+    resultado3 != pdPASS ||
+    resultado4 != pdPASS) {
 
     Serial.println("Error creando alguna tarea.");
   }
@@ -339,35 +364,4 @@ void setup() {
 // El trabajo se realiza en las tareas FreeRTO
 void loop() {
   vTaskDelay(pdMS_TO_TICKS(1000));
-  /*
-  if (!client.connected()) {
-    reconnect_mqtt();
-  }
-  client.loop(); 
-
-  unsigned long now = millis();
-  
-  if (now - lastMsg > 5000) { 
-    lastMsg = now;
-
-    // Lectura MPU6050
-    sensors_event_t a, g, temp_mpu;
-    mpu.getEvent(&a, &g, &temp_mpu);
-
-    // Lectura BMP180
-    float temp_bmp = bmp.readTemperature(); // Temperatura en °C
-    int32_t pressure = bmp.readPressure();  // Presión en Pascales (Pa)
-    
-    // Preparar el mensaje (Aumentamos a 200 bytes para acomodar todo)
-    char payload[200];
-    snprintf(payload, sizeof(payload), 
-             "Acel Z:%.2f | Giro X:%.2f | Temp(MPU):%.2fC | Temp(BMP):%.2fC | Presion:%d Pa", 
-             a.acceleration.z, g.gyro.x, temp_mpu.temperature, temp_bmp, pressure);
-
-    Serial.print("Enviando: ");
-    Serial.println(payload);
-
-    client.publish("prueba/salida", payload);
-  }
-  */
 }

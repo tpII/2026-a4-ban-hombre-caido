@@ -1,0 +1,21 @@
+[33mcommit 702731e3176508c47e08c9d5cf1eafa38925aae2[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: CarlosChips456 <carlosmaizares@gmail.com>
+Date:   Fri Oct 9 18:27:18 2026 -0300
+
+    lectura-rtos+primera-calibracion-mpu
+
+ .pio/build/nodemcu-32s/idedata.json          |   1 [32m+[m
+ .pio/build/project.checksum                  |   1 [32m+[m
+ .vscode/c_cpp_properties.json                | 511 [32m++++++++++++++[m
+ .vscode/extensions.json                      |  11 [32m+[m
+ .vscode/launch.json                          |  44 [32m++[m
+ firmware_esp32/.vscode/c_cpp_properties.json | 954 [32m+++++++++++++[m[31m--------------[m
+ firmware_esp32/.vscode/launch.json           |  12 [32m+[m[31m-[m
+ firmware_esp32/include/config.h              |   6 [32m+[m[31m-[m
+ firmware_esp32/src/main.cpp                  | 313 [32m++++++++[m[31m-[m
+ 9 files changed, 1363 insertions(+), 490 deletions(-)
+ create mode 100644 .pio/build/nodemcu-32s/idedata.json
+ create mode 100644 .pio/build/project.checksum
+ create mode 100644 .vscode/c_cpp_properties.json
+ create mode 100644 .vscode/extensions.json
+ create mode 100644 .vscode/launch.json
